@@ -2,8 +2,6 @@
 
 # Getting Started
 
-Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor.
-
   - git clone **https://github.com/oihi08/webrtc.git**
   - (sudo) npm install
   - gulp init
