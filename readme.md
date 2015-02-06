@@ -12,4 +12,4 @@ Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered H
   - Go to **http://localhost:8080/www/**
 
 Now, open two browser with this url and write in both different name and enter *login*.
-Then, in one of this browser, push *call* and accept "cam" permissions.
+Then, in one of this browser, push *call* and accept camera permissions.
