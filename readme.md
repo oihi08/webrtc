@@ -1,4 +1,4 @@
-## **SORRY, MY ENGLISH IS BAD**
+## **Sorry about my English**
 
 # Getting Started
 
