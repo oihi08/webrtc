@@ -1,5 +1,3 @@
-## **Sorry about my English**
-
 # Getting Started
 
   - git clone **https://github.com/oihi08/webrtc.git**
