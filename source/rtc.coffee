@@ -24,7 +24,7 @@
 #         {url: "stun:stun.xten.com"}
 #     ]
 
-ICE_SERVERS = "iceServers": [{"url": "stun:numb.viagenie.ca"}, {"url":"turn:seveoih@hotmail.com", "credential":"1991oihitapquo"}]
+ICE_SERVERS = "iceServers": [{"url": "stun:numb.viagenie.ca"}, {"url":"", "credential":""}]
 OPTIONS      = "optional"  : [{"RtpDataChannels": true }]
 
 SDPCONTRAINS =
@@ -33,7 +33,7 @@ SDPCONTRAINS =
 
 events = [ "offer", "answer", "ice", "connected", "hangUp", "error" ]
 
-SOCKET_URL = "http://filmit.watch:8008"
+SOCKET_URL = "http://localhost:8008"
 
 class window.webRTC
   constructor: ->
