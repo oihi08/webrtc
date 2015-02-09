@@ -1,29 +1,30 @@
 # https://code.google.com/p/natvpn/source/browse/trunk/stun_server_list (DE AQUÍ HE SACADO LA LISTA DE STUNS SERVERS)
-ICE_SERVERS =  "iceServers" : [{ "url" :
-        if navigator.mozGetUserMedia then 'stun:stun.services.mozilla.com' else if navigator.webkitGetUserMedia then 'stun:stun.l.google.com:19302' else 'stun:23.21.150.121'
-    },
-        {url: "stun:stun.l.google.com:19302"},
-        {url: "stun:stun1.l.google.com:19302"},
-        {url: "stun:stun2.l.google.com:19302"},
-        {url: "stun:stun3.l.google.com:19302"},
-        {url: "stun:stun4.l.google.com:19302"},
-        {url: "stun:23.21.150.121"},
-        {url: "stun:stun01.sipphone.com"},
-        {url: "stun:stun.ekiga.net"},
-        {url: "stun:stun.fwdnet.net"},
-        {url: "stun:stun.ideasip.com"},
-        {url: "stun:stun.iptel.org"},
-        {url: "stun:stun.rixtelecom.se"},
-        {url: "stun:stun.schlund.de"},
-        {url: "stun:stunserver.org"},
-        {url: "stun:stun.softjoys.com"},
-        {url: "stun:stun.voiparound.com"},
-        {url: "stun:stun.voipbuster.com"},
-        {url: "stun:stun.voipstunt.com"},
-        {url: "stun:stun.voxgratia.org"},
-        {url: "stun:stun.xten.com"}
-    ]
+# ICE_SERVERS =  "iceServers" : [{ "url" :
+#         if navigator.mozGetUserMedia then 'stun:stun.services.mozilla.com' else if navigator.webkitGetUserMedia then 'stun:stun.l.google.com:19302' else 'stun:23.21.150.121'
+#     },
+#         {url: "stun:stun.l.google.com:19302"},
+#         {url: "stun:stun1.l.google.com:19302"},
+#         {url: "stun:stun2.l.google.com:19302"},
+#         {url: "stun:stun3.l.google.com:19302"},
+#         {url: "stun:stun4.l.google.com:19302"},
+#         {url: "stun:23.21.150.121"},
+#         {url: "stun:stun01.sipphone.com"},
+#         {url: "stun:stun.ekiga.net"},
+#         {url: "stun:stun.fwdnet.net"},
+#         {url: "stun:stun.ideasip.com"},
+#         {url: "stun:stun.iptel.org"},
+#         {url: "stun:stun.rixtelecom.se"},
+#         {url: "stun:stun.schlund.de"},
+#         {url: "stun:stunserver.org"},
+#         {url: "stun:stun.softjoys.com"},
+#         {url: "stun:stun.voiparound.com"},
+#         {url: "stun:stun.voipbuster.com"},
+#         {url: "stun:stun.voipstunt.com"},
+#         {url: "stun:stun.voxgratia.org"},
+#         {url: "stun:stun.xten.com"}
+#     ]
 
+ICE_SERVERS = "iceServers": [{"url": "stun:numb.viagenie.ca"}, {"url":"turn:seveoih@hotmail.com", "credential":"1991oihitapquo"}]
 OPTIONS      = "optional"  : [{"RtpDataChannels": true }]
 
 SDPCONTRAINS =
@@ -32,7 +33,7 @@ SDPCONTRAINS =
 
 events = [ "offer", "answer", "ice", "connected", "hangUp", "error" ]
 
-SOCKET_URL = "http://localhost:8008"
+SOCKET_URL = "http://filmit.watch:8008"
 
 class window.webRTC
   constructor: ->
