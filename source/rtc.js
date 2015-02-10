@@ -11,7 +11,7 @@ SDPCONTRAINS = {
 
 events = ["offer", "answer", "ice", "connected", "hangUp", "error"];
 
-SOCKET_URL = "http://localhost:8008";
+SOCKET_URL = "http://filmit.watch:8008";
 
 window.webRTC = (function() {
 
