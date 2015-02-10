@@ -5,7 +5,7 @@
 #         {url: "stun:stun.l.google.com:19302"},
 #         {url: "stun:stun1.l.google.com:19302"},
 #         {url: "stun:stun2.l.google.com:19302"},
-#         {url: "stun:stun3.l.google.com:19302"},
+#         {url: "stun2:stun3.l.google.com:19302"},
 #         {url: "stun:stun4.l.google.com:19302"},
 #         {url: "stun:23.21.150.121"},
 #         {url: "stun:stun01.sipphone.com"},
@@ -24,7 +24,7 @@
 #         {url: "stun:stun.xten.com"}
 #     ]
 
-ICE_SERVERS = "iceServers": [{"url": "stun:numb.viagenie.ca"}, {"url":"", "credential":""}]
+# ICE_SERVERS = "iceServers": [{"url": "stun:numb.viagenie.ca"}, {"url":"", "credential":""}]
 OPTIONS      = "optional"  : [{"RtpDataChannels": true }]
 
 SDPCONTRAINS =
@@ -33,7 +33,7 @@ SDPCONTRAINS =
 
 events = [ "offer", "answer", "ice", "connected", "hangUp", "error" ]
 
-SOCKET_URL = "http://localhost:8008"
+SOCKET_URL = "http://filmit.watch:8008"
 
 class window.webRTC
   constructor: ->
@@ -43,7 +43,10 @@ class window.webRTC
 
     @initialize()
     @socket = io.connect SOCKET_URL
-    @peer = new window.webkitRTCPeerConnection ICE_SERVERS, OPTIONS
+    window.turnserversDotComAPI.iceServers (data) =>
+      @peer = new webkitRTCPeerConnection({ iceServers: data }, {})
+      return
+    # @peer = new window.webkitRTCPeerConnection ICE_SERVERS, OPTIONS
     @peer.onicecandidate = (ice) =>
       if ice.candidate and not @offerer
         @peer.addIceCandidate @_iceCandidate(ice.candidate)
