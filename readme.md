@@ -1,7 +1,7 @@
 # Getting Started
 
   - git clone **https://github.com/oihi08/webrtc.git**
-  - (sudo) npm install
+  - npm install
   - gulp init
   - npm start
   - (In another shell) http-server (or something like this)
