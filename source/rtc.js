@@ -51,6 +51,7 @@ window.webRTC = (function() {
     })(this));
     this.peer.onicecandidate = (function(_this) {
       return function(ice) {
+        console.log("ice", ice)
         if (ice.candidate && !_this.offerer) {
           _this.peer.addIceCandidate(_this._iceCandidate(ice.candidate));
           return _this.socket.emit("ice", _this.connected_user, ice);
