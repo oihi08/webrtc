@@ -1,4 +1,19 @@
 
+ICE_SERVERS =  "iceServers": [
+    {
+      url: 'turn:numb.viagenie.ca',
+      credential: 'muazkh',
+      username: 'webrtc@live.com'
+  }, {
+      url: 'turn:192.158.29.39:3478?transport=udp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808'
+  }, {
+      url: 'turn:192.158.29.39:3478?transport=tcp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808'
+  }
+]
 
 SDPCONTRAINS =
   optional: []
@@ -16,10 +31,10 @@ class window.webRTC
 
     @initialize()
     @socket = io.connect SOCKET_URL
-    window.turnserversDotComAPI.iceServers (data) =>
-      @peer = new webkitRTCPeerConnection({ iceServers: data }, {})
-      return
-    # @peer = new window.webkitRTCPeerConnection ICE_SERVERS, OPTIONS
+    # window.turnserversDotComAPI.iceServers (data) =>
+    #   @peer = new webkitRTCPeerConnection({ iceServers: data }, {})
+    #   return
+    @peer = new window.webkitRTCPeerConnection ICE_SERVERS, {}
     @peer.onicecandidate = (ice) =>
       if ice.candidate and not @offerer
         @peer.addIceCandidate @_iceCandidate(ice.candidate)
