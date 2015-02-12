@@ -6,12 +6,12 @@ SDPCONTRAINS =
 
 events = [ "offer", "answer", "ice", "connected", "hangUp", "error" ]
 
-SOCKET_URL = "http://localhost:8008"
+SOCKET_URL = "http://filmit.watch:8008"
 
 class window.webRTC
   constructor: ->
     $("#login").click => @login()
-    $("#call").click => @_getCamera friend=true
+    $("#call").click => @offer @_getUserInLocalStorage "friend"#@_getCamera friend=true
     $("#hangup").click => @hangup()
 
     @initialize()
@@ -38,6 +38,7 @@ class window.webRTC
     session = $("#user").val()
     localStorage.setItem "session", session
     @socket.emit "open", session
+    @_getCamera()
 
   hangup: ->
     @socket.emit "hangUp", @_getUserInLocalStorage "friend"
@@ -54,11 +55,13 @@ class window.webRTC
     @offerer = false
     @peer.setRemoteDescription(@_sessionDescription(remote_description))
     @peer.createAnswer((description) =>
+      console.log "netra aqiui"
       @peer.setLocalDescription description
       @socket.emit "answer", user, description
     , null, SDPCONTRAINS)
 
   onRemoteStream: (remote_stream) =>
+    console.log "entra aqui"
     $(@remoteVideo).attr "src", window.URL.createObjectURL remote_stream
     $(@remoteVideo).addClass "active"
 
@@ -88,7 +91,9 @@ class window.webRTC
     @connected_user = @message.user
     $(@localVideo).addClass "active"
     @peer.info = @message
-    @_getCamera()
+    console.log "ahhh"
+    @accept @peer.info.user, @peer.info.description
+    # @_getCamera()
 
   _answer: (data) =>
     @peer.setRemoteDescription @_sessionDescription(data.description)
@@ -106,10 +111,11 @@ class window.webRTC
         $(@localVideo).addClass "active"
         @peer.addStream @local_stream
         @peer.onaddstream = (event) => @onRemoteStream event.stream
-        if friend
-          @offer @_getUserInLocalStorage "friend"
-        else
-          @accept @peer.info.user, @peer.info.description
+        # if friend
+        #   @offer @_getUserInLocalStorage "friend"
+        # else
+        #   console.log "@ss", @peer
+          # @accept @peer.info.user, @peer.info.description
       , (error) -> console.log "error", error
 
   _close: ->
