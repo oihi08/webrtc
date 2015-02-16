@@ -1,11 +1,3 @@
-# Getting Started
+# Video Chat
 
-  - git clone **https://github.com/oihi08/webrtc.git**
-  - npm install
-  - gulp init
-  - npm start
-  - (In another shell) http-server (or something like this)
-  - Go to **http://localhost:8080/www/**
-
-Now, open two browser with this url and write in both different name and enter *login*.
-Then, in one of this browser, push *call* and accept camera permissions.
+A simple video chat between two people as an example of how to connect two browsers via WebRTC.

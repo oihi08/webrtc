@@ -1,29 +1,16 @@
 {
-  "name"            : "webRTC",
-  "version"         : "0.1.1",
-  "description"     : "webRTC prototype.",
-  "author"          : "Oihi",
+  "name": "video-chat2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "coffee-script" : "*",
-    "socket.io"     : "*",
-    "zenserver"     : "*"
-  },
-  "devDependencies" : {
-    "gulp"        : "*",
-    "gulp-coffee" : "*",
-    "gulp-concat" : "*",
-    "gulp-flatten": "*",
-    "gulp-header" : "*",
-    "gulp-jasmine": "*",
-    "gulp-stylus" : "*",
-    "gulp-uglify" : "*",
-    "gulp-util"   : "*",
-    "gulp-yml"    : "*",
-    "zenrequest"  : "*"
-  },
-  "scripts"         : {
-    "start" : "node zen.js zen development",
-    "test"  : "node zen.request.js zen development"
-  },
-  "engines"         : { "node": "*"}
+    "hapi": "^8.0.0",
+    "socket.io": "^1.2.1",
+    "twilio": "^1.10.0"
+  }
 }
