@@ -1,24 +1,8 @@
-Hapi = require('hapi')
-server = new (Hapi.Server)
-server.connection
-  'host': 'filmit.watch'
-  'port': 3000
 socketio = require('socket.io')
-io = socketio(server.listener)
 twilio = require('twilio')('AC44a6567b84e9c9496479312d11fbd64a', '4f9461ca2983b6223b27e5e3af24378a')
-# Serve static assets
-server.route
-  method: 'GET'
-  path: '/{path*}'
-  handler: directory:
-    path: './public'
-    listing: false
-    index: true
-
-server.start ->
-  console.log('Server running at:', server.info.uri)
 
 module.exports = (server) ->
+  io = socketio.listen(3000)
   io.on "connection", (socket) ->
     socket.on "join", (room) ->
       clients = io.sockets.adapter.rooms[room]

@@ -2,7 +2,7 @@
 // namespace.
 var VideoChat = {
   // Initialise our connection to the WebSocket.
-  socket: io(),
+  socket: io("http://filmit.watch:3000"),
 
   // Call to getUserMedia (provided by adapter.js for cross browser compatibility)
   // asking for access to both the video and audio streams. If the request is
