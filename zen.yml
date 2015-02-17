@@ -9,6 +9,18 @@ environment: development
 api:
   - rtc
 
+www:
+  - index
+
+# -- Static resources ----------------------------------------------------------
+statics:
+  - url   : /assets/:subfolder
+    folder: /assets
+    maxage: 3600
+  - url   : /lib
+    folder: /lib
+    maxage: 3600
+
 # -- CORS Properties -----------------------------------------------------------
 headers:
   Access-Control-Allow-Origin: "*"

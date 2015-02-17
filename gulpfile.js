@@ -10,9 +10,9 @@ var gutil   = require('gulp-util');
 var pkg     = require('./package.json');
 
 // -- FILES --------------------------------------------------------------------
-var assets = 'public/';
+var assets = 'assets/';
 var source = {
-  coffee  : [ 'public/app.coffee']
+  coffee  : [ 'source/app.coffee']
 }
 
 var banner = ['/**',
