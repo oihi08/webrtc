@@ -1,7 +1,7 @@
 Hapi = require('hapi')
 server = new (Hapi.Server)
 server.connection
-  'host': 'localhost'
+  'host': 'filmit.watch'
   'port': 3000
 socketio = require('socket.io')
 io = socketio(server.listener)
