@@ -1,7 +1,7 @@
 var Hapi = require('hapi');
 var server = new Hapi.Server()
 server.connection({
-  'host': 'filmit.watch',
+  'host': 'localhost',
   'port': 3000
 });
 var socketio = require("socket.io");
