@@ -1,6 +1,0 @@
-# -- General Info --------------------------------------------------------------
-protocol : http
-host     : localhost
-port     : 1337
-type     : development
-timezone : Europe/Madrid

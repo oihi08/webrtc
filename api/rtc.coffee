@@ -3,6 +3,7 @@ twilio = require('twilio')('AC44a6567b84e9c9496479312d11fbd64a', '4f9461ca2983b6
 
 module.exports = (server) ->
   io = socketio.listen(3000)
+
   io.on "connection", (socket) ->
     socket.on "join", (room) ->
       clients = io.sockets.adapter.rooms[room]
