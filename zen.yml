@@ -9,8 +9,8 @@ environment: development
 api:
   - rtc
 
-www:
-  - index
+# www:
+#   - index
 
 # -- Static resources ----------------------------------------------------------
 statics:
