@@ -38,6 +38,7 @@ window.VC =
   onIceCandidate: (event) ->
     if event.candidate
       VC.socket.emit "candidate", JSON.stringify event.candidate
+      VC.callButton.setAttribute "disabled", "disabled"
 
   onCandidate: (candidate) ->
     rtcCandidate = new RTCIceCandidate JSON.parse candidate
