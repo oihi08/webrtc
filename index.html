@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Video Chat</title>
+    <title>WebRTC chat</title>
+    <link rel="stylesheet" href="/assets/css/VideoChat.css">
 </head>
 <body>
-  <h1>Video Chat</h1>
+  <h1>WebRTC Chat</h1>
   <video id="local-video" height="300" autoplay></video>
   <video id="remote-video" height="300" autoplay></video>
 
   <div>
     <button id="get-video">Get Video</button>
-    <button id="call" disabled="disabled">Call</button>
+    <button class="disable" id="call" disabled="disabled">Call</button>
   </div>
 
-  <script src="http://filmit.watch:3000/socket.io/socket.io.js"></script>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script src="/lib/adapter.js"></script>
   <script src="/assets/js/VideoChat.js"></script>
 </body>

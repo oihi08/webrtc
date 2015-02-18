@@ -9,9 +9,6 @@ environment: development
 api:
   - rtc
 
-# www:
-#   - index
-
 # -- Static resources ----------------------------------------------------------
 statics:
   - url   : /assets/:subfolder

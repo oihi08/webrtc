@@ -7,12 +7,14 @@ var concat  = require('gulp-concat');
 var header  = require('gulp-header');
 var uglify  = require('gulp-uglify');
 var gutil   = require('gulp-util');
+var stylus  = require('gulp-stylus');
 var pkg     = require('./package.json');
 
 // -- FILES --------------------------------------------------------------------
 var assets = 'assets/';
 var source = {
-  coffee  : [ 'source/app.coffee']
+  coffee : [ 'source/app.coffee'],
+  styl   : [ 'source/app.styl']
 }
 
 var banner = ['/**',
@@ -34,10 +36,19 @@ gulp.task('coffee', function() {
     .pipe(gulp.dest(assets + '/js'));
 });
 
+gulp.task('styl', function() {
+  gulp.src(source.styl)
+    .pipe(concat(pkg.name + '.styl'))
+    .pipe(stylus({compress: true, errors: true}))
+    .pipe(header(banner, {pkg: pkg}))
+    .pipe(gulp.dest(assets + '/css'));
+});
+
 gulp.task('init', function() {
-  gulp.run(['coffee'])
+  gulp.run(['coffee', 'styl'])
 });
 
 gulp.task('default', function() {
   gulp.watch(source.coffee, ['coffee']);
+  gulp.watch(source.styl, ['styl']);
 });
