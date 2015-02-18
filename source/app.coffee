@@ -1,5 +1,5 @@
 VC =
-  socket: io "http://localhost:3000"
+  socket: io "http://filmit.watch:3000"
 
   requestMediaStream: (event) ->
     getUserMedia {video: true, audio: true}, VC.onMediaStream, VC.noMediaStream
