@@ -15,7 +15,7 @@ window.VC =
     VC.socket.on "offer", VC.onOffer
 
   noMediaStream: ->
-    console.log "No media stream for us."
+    alert "No media stream for us."
 
   readyToCall: (event) ->
     VC.callButton.removeAttribute "disabled"
@@ -42,6 +42,7 @@ window.VC =
   onCandidate: (candidate) ->
     rtcCandidate = new RTCIceCandidate JSON.parse candidate
     VC.peerConnection.addIceCandidate rtcCandidate
+    VC.callButton.setAttribute "disabled", "disabled"
 
   createOffer: ->
     VC.peerConnection.createOffer (offer) ->
@@ -57,7 +58,7 @@ window.VC =
         VC.socket.emit 'answer', JSON.stringify answer
         return
       , (error) ->
-        console.log "error", error
+        alert "error", error
         return
       return
 
