@@ -10,13 +10,28 @@
   <video id="local-video" height="300" autoplay></video>
   <video id="remote-video" height="300" autoplay></video>
 
+  <section id="messages-container">
+      <div id="messages"></div>
+      <textarea id="text"></textarea>
+  </section>
+
   <div>
     <button id="get-video">Get Video</button>
     <button class="disable" id="call" disabled="disabled">Call</button>
   </div>
 
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="http://filmit.watch:3000/socket.io/socket.io.js"></script>
   <script src="/lib/adapter.js"></script>
   <script src="/assets/js/VideoChat.js"></script>
+  <script>
+    $("#text").keypress(function(e) {
+      if (e.which == 13) {
+        VC.sendText($(this).val());
+        VC.onMessage("Me", $(this).val());
+        $(this).val("");
+      }
+    });
+  </script>
 </body>
 </html>

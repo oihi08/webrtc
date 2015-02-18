@@ -33,3 +33,5 @@ module.exports = (server) ->
     socket.on "answer", (answer) ->
       socket.broadcast.emit "answer", answer
 
+    socket.on "message", (data) ->
+      socket.broadcast.emit "message", data.user, data.text

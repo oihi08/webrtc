@@ -1,4 +1,4 @@
-VC =
+window.VC =
   socket: io "http://filmit.watch:3000"
 
   requestMediaStream: (event) ->
@@ -73,8 +73,21 @@ VC =
     VC.remoteVideo = document.getElementById "remote-video"
     VC.remoteVideo.src = window.URL.createObjectURL event.stream
 
+  sendText: (text) ->
+    data = user: "Friend", text: text
+    VC.socket.emit "message", data
+
+  onMessage: (user, text) ->
+    $(document.createElement("div"))
+      .html("<strong>" + user + ": </strong>" + text)
+      .appendTo("#messages");
+
+      $('#messages-container').scrollTop($('#messages').height());
+
 VC.videoButton = document.getElementById "get-video"
 VC.videoButton.addEventListener "click", VC.requestMediaStream, false
 
 VC.callButton = document.getElementById "call"
 VC.callButton.addEventListener "click", VC.startCall, false
+
+VC.socket.on "message", VC.onMessage
