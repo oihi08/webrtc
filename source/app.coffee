@@ -8,6 +8,7 @@ class window.VC
     @peer.on "onAddStream", @onAddStream
     CATA = "54f5cbe233b84d9e6eb8dadf"
     OIHI = "54f5cbd733b84d9e6eb8dadc"
+
     @peer.users OIHI, CATA
 
     @videoButton = document.getElementById "get-video"
@@ -15,6 +16,9 @@ class window.VC
 
     @callButton = document.getElementById "call"
     @callButton.addEventListener "click", @startCall, false
+
+    @callButton = document.getElementById "login"
+    @callButton.addEventListener "click", @login, false
 
   getVideo: =>
     getUserMedia {video: true, audio: true}, @onMediaStream, @failMediaStream
@@ -35,3 +39,6 @@ class window.VC
   onAddStream: (event) =>
     @remoteVideo = document.getElementById "remote-video"
     @remoteVideo.src = window.URL.createObjectURL event.stream
+
+  login: ->
+    Appnima.User.login("cata@tapquo.com", "cata")
