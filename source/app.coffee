@@ -37,6 +37,7 @@ class window.VC
     @peer.getToken()
 
   onAddStream: (event) =>
+    console.log "aqui??? event", event.stream
     @remoteVideo = document.getElementById "remote-video"
     @remoteVideo.src = window.URL.createObjectURL event.stream
 
