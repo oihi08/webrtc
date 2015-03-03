@@ -6,8 +6,8 @@ class window.VC
 
     @peer = new Appnima.Peer()
     @peer.on "onAddStream", @onAddStream
-    CATA = "54f0571e9e06f4a0298946ac"
-    OIHI = "54f047e44330a8831395093d"
+    CATA = "54f5cbe233b84d9e6eb8dadf"
+    OIHI = "54f5cbd733b84d9e6eb8dadc"
     @peer.users OIHI, CATA
 
     @videoButton = document.getElementById "get-video"
