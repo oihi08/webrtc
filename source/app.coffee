@@ -1,45 +1,102 @@
-class window.VC
 
-  constructor: ->
-    Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
-    Appnima.User.session()
+    # main    : "http://localhost:1337"
+    # socket  : "http://socket.appnima.com"
+    # rtc     : "http://localhost:3001"
+    # storage : "http://storage.appnima.com"
 
-    @peer = new Appnima.Peer()
-    @peer.on "onAddStream", @onAddStream
-    CATA = "54f5cbe233b84d9e6eb8dadf"
-    OIHI = "54f5cbd733b84d9e6eb8dadc"
 
-    @peer.users OIHI, CATA
+window.VC =
+  socket: io "http://filmit.watch:3000"
 
-    @videoButton = document.getElementById "get-video"
-    @videoButton.addEventListener "click", @getVideo, false
+  requestMediaStream: (event) ->
+    getUserMedia {video: true, audio: true}, VC.onMediaStream, VC.noMediaStream
 
-    @callButton = document.getElementById "call"
-    @callButton.addEventListener "click", @startCall, false
+  onMediaStream: (stream) ->
+    VC.localVideo = document.getElementById "local-video"
+    VC.localVideo.volume = 0
+    VC.localStream = stream
+    VC.videoButton.setAttribute "disabled", "disabled"
+    VC.localVideo.src = window.URL.createObjectURL stream
+    VC.socket.emit "join", "test"
+    VC.socket.on "ready", VC.readyToCall
+    VC.socket.on "offer", VC.onOffer
 
-    @callButton = document.getElementById "login"
-    @callButton.addEventListener "click", @login, false
+  noMediaStream: ->
+    alert "No media stream for us."
 
-  getVideo: =>
-    getUserMedia {video: true, audio: true}, @onMediaStream, @failMediaStream
+  readyToCall: (event) ->
+    VC.callButton.removeAttribute "disabled"
 
-  onMediaStream: (stream) =>
-    @localVideo = document.getElementById "local-video"
-    @localVideo.volume = 0
-    @peer.addStream stream
-    @localVideo.src = window.URL.createObjectURL stream
-    @peer.connected()
+  startCall: (event) ->
+    VC.socket.on "token", VC.onToken VC.createOffer
+    VC.socket.emit "token"
 
-  failMediaStream: ->
-    console.log "failMediaStream"
+  onToken: (callback) ->
+    (token) ->
+      VC.peerConnection = new RTCPeerConnection iceServers: token.iceServers
+      VC.peerConnection.addStream VC.localStream
+      VC.peerConnection.onicecandidate = VC.onIceCandidate
+      VC.peerConnection.onaddstream = VC.onAddStream
+      VC.socket.on 'candidate', VC.onCandidate
+      VC.socket.on 'answer', VC.onAnswer
+      callback()
+      return
 
-  startCall: =>
-    @peer.getToken()
+  onIceCandidate: (event) ->
+    if event.candidate
+      VC.socket.emit "candidate", JSON.stringify event.candidate
+      VC.callButton.setAttribute "disabled", "disabled"
 
-  onAddStream: (event) =>
-    console.log "aqui??? event", event.stream
-    @remoteVideo = document.getElementById "remote-video"
-    @remoteVideo.src = window.URL.createObjectURL event.stream
+  onCandidate: (candidate) ->
+    rtcCandidate = new RTCIceCandidate JSON.parse candidate
+    VC.peerConnection.addIceCandidate rtcCandidate
+    VC.callButton.setAttribute "disabled", "disabled"
 
-  login: ->
-    Appnima.User.login("cata@tapquo.com", "cata")
+  createOffer: ->
+    VC.peerConnection.createOffer (offer) ->
+      VC.peerConnection.setLocalDescription offer
+      VC.socket.emit "offer", JSON.stringify offer
+
+  createAnswer: (offer) ->
+    ->
+      rtcOffer = new RTCSessionDescription JSON.parse offer
+      VC.peerConnection.setRemoteDescription rtcOffer
+      VC.peerConnection.createAnswer (answer) ->
+        VC.peerConnection.setLocalDescription answer
+        VC.socket.emit 'answer', JSON.stringify answer
+        return
+      , (error) ->
+        alert "error", error
+        return
+      return
+
+  onOffer: (offer) ->
+    VC.socket.on "token", VC.onToken VC.createAnswer offer
+    VC.socket.emit "token"
+
+  onAnswer: (answer) ->
+    rtcAnswer = new RTCSessionDescription JSON.parse answer
+    VC.peerConnection.setRemoteDescription rtcAnswer
+
+  onAddStream: (event) ->
+    VC.remoteVideo = document.getElementById "remote-video"
+    VC.remoteVideo.src = window.URL.createObjectURL event.stream
+
+  sendText: (text) ->
+    data = user: "Friend", text: text
+    VC.socket.emit "message", data
+
+  onMessage: (user, text) ->
+    $(document.createElement("div"))
+      .html("<strong>" + user + ": </strong>" + text)
+      .appendTo("#messages");
+
+      $('#messages-container').scrollTop($('#messages').height());
+
+VC.videoButton = document.getElementById "get-video"
+VC.videoButton.addEventListener "click", VC.requestMediaStream, false
+
+VC.callButton = document.getElementById "call"
+VC.callButton.addEventListener "click", VC.startCall, false
+
+VC.socket.on "message", VC.onMessage
