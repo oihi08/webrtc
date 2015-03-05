@@ -6,8 +6,8 @@ socket:
 environment: development
 
 # -- RESTful services ----------------------------------------------------------
-api:
-  - rtc
+# api:
+#   - rtc
 
 # -- Static resources ----------------------------------------------------------
 statics:
