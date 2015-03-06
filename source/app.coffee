@@ -1,4 +1,4 @@
-class window.VC
+class window.VideoChat
 
   constructor: ->
     Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
@@ -7,39 +7,38 @@ class window.VC
     @peer = new Appnima.Peer()
     @peer.on "onAddStream", @onAddStream
 
-    @videoButton = document.getElementById "onLogin"
-    @videoButton.addEventListener "click", @onLogin, false
+    loginBtn = document.getElementById "onLogin"
+    loginBtn.addEventListener "click", @onLogin, false
 
-    @videoButton = document.getElementById "get-video"
-    @videoButton.addEventListener "click", @getVideo, false
+    videoBtn = document.getElementById "get-video"
+    videoBtn.addEventListener "click", @onGetCamera, false
 
-    @videoButton = document.getElementById "call"
-    @videoButton.addEventListener "click", @call, false
+    callBtn = document.getElementById "call"
+    callBtn.addEventListener "click", @onCall, false
 
   onLogin: ->
     mail = $(document.getElementById("mail")).val()
     password = $(document.getElementById("password")).val()
-    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f5cbe233b84d9e6eb8dadf")
+    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f0571e9e06f4a0298946ac")
     Appnima.User.login(mail, password)
     console.log "Login!"
 
-  getVideo: =>
+  onGetCamera: =>
     getUserMedia {video: true, audio: true}, @onMediaStream, @failMediaStream
 
   onMediaStream: (stream) =>
-    @localVideo = document.getElementById "local-video"
-    @localVideo.volume = 0
-    @peer.addStream stream
-    @localVideo.src = window.URL.createObjectURL stream
-    @peer.join Appnima.User.session().access_token
+    localVideo = document.getElementById "local-video"
+    localVideo.volume = 0
+    localVideo.src = window.URL.createObjectURL stream
+    @peer.stream = stream
+    @peer.join()
 
   failMediaStream: ->
     console.log "failMediaStream"
 
-  call: =>
-    @peer.token startCall = true
+  onCall: =>
+    @peer.token()
 
-  onAddStream: (event) ->
-    console.log "joeee", event.stream
+  onAddStream: (event) =>
     remoteVideo = document.getElementById "remote-video"
     remoteVideo.src = window.URL.createObjectURL event.stream

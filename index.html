@@ -11,7 +11,7 @@
   <video id="remote-video" height="300" autoplay></video>
   <div>
     <input type="text" id="mail" name="mail" value="oihane@tapquo.com"/>
-    <input type="text" id="password" name="password" value="oihi"/>
+    <input type="text" id="password" name="password" value="1991oihi"/>
     <button id="onLogin">LOGIN</button>
   </div>
   <div>
@@ -25,8 +25,9 @@
   <script src="/lib/adapter.js"></script>
   <script src="/assets/js/VideoChat.js"></script>
   <script>
+    Appnima.host.main = "http://146.185.166.156:1337"
     Appnima.host.rtc = "http://146.185.166.156:3001"
-    new window.VC
+    new window.VideoChat
   </script>
 </body>
 </html>
