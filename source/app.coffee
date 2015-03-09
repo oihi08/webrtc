@@ -1,11 +1,12 @@
 class window.VideoChat
 
   constructor: ->
-    Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
+    Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
     Appnima.User.session()
 
     @peer = new Appnima.Peer()
     @peer.on "onAddStream", @onAddStream
+    @peer.on "onHangUp", @onHangUp
 
     loginBtn = document.getElementById "onLogin"
     loginBtn.addEventListener "click", @onLogin, false
@@ -19,7 +20,7 @@ class window.VideoChat
   onLogin: ->
     mail = $(document.getElementById("mail")).val()
     password = $(document.getElementById("password")).val()
-    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f5cbe233b84d9e6eb8dadf")
+    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f0571e9e06f4a0298946ac")
     Appnima.User.login(mail, password)
     console.log "Login!"
 
@@ -27,9 +28,9 @@ class window.VideoChat
     getUserMedia {video: true, audio: true}, @onMediaStream, @failMediaStream
 
   onMediaStream: (stream) =>
-    localVideo = document.getElementById "local-video"
-    localVideo.volume = 0
-    localVideo.src = window.URL.createObjectURL stream
+    @localVideo = document.getElementById "local-video"
+    @localVideo.volume = 0
+    @localVideo.src = window.URL.createObjectURL stream
     @peer.stream = stream
     @peer.join()
 
@@ -40,5 +41,13 @@ class window.VideoChat
     @peer.token()
 
   onAddStream: (event) =>
-    remoteVideo = document.getElementById "remote-video"
-    remoteVideo.src = window.URL.createObjectURL event.stream
+    console.log "llega??"
+    @remoteVideo = document.getElementById "remote-video"
+    @remoteVideo.src = window.URL.createObjectURL event.stream
+
+  onHangUp: =>
+    @peer.stream.stop()
+    @localVideo.src = ""
+    @remoteVideo.src = ""
+    @localVideo.pause()
+    @remoteVideo.pause()
