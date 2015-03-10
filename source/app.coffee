@@ -9,6 +9,13 @@ class window.VideoChat
 
   constructor: ->
     console.log "hola"
+
+    #DEVELOPMENT
+    # Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
+    #REAL
+    Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
+    Appnima.User.session()
+    @peer = new Appnima.Peer()
 #   socket: io "http://localhost:3001"
 
 #   requestMediaStream: (event) ->
