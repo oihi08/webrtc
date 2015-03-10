@@ -8,7 +8,6 @@
 class window.VideoChat
 
   constructor: ->
-    console.log "hola"
 
     #DEVELOPMENT
     # Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
@@ -16,12 +15,25 @@ class window.VideoChat
     Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
     Appnima.User.session()
     @peer = new Appnima.Peer()
+
+    @videoButton = document.getElementById "get-video"
+    @videoButton.addEventListener "click", @requestMediaStream, false
+
+    @callButton = document.getElementById "call"
+    @callButton.addEventListener "click", @startCall, false
 #   socket: io "http://localhost:3001"
 
-#   requestMediaStream: (event) ->
-#     getUserMedia {video: true, audio: true}, VC.onMediaStream, VC.noMediaStream
+  requestMediaStream: (event) =>
+    console.log "holitaaa"
+    getUserMedia {video: true, audio: true}, @onMediaStream, @noMediaStream
 
-#   onMediaStream: (stream) ->
+  onMediaStream: (stream) =>
+    @localVideo = document.getElementById "local-video"
+    @localVideo.volume = 0
+    @localVideo.src = window.URL.createObjectURL stream
+    @peer.stream stream, @callButton
+    @videoButton.setAttribute "disabled", "disabled"
+    @peer.join()
 #     VC.localVideo = document.getElementById "local-video"
 #     VC.localVideo.volume = 0
 #     VC.localStream = stream
@@ -31,13 +43,14 @@ class window.VideoChat
 #     VC.socket.on "ready", VC.readyToCall
 #     VC.socket.on "offer", VC.onOffer
 
-#   noMediaStream: ->
-#     alert "No media stream for us."
+  noMediaStream: ->
+    alert "No media stream for us."
 
 #   readyToCall: (event) ->
 #     VC.callButton.removeAttribute "disabled"
 
-#   startCall: (event) ->
+  startCall: =>
+    @peer.token()
 #     VC.socket.on "token", VC.onToken VC.createOffer
 #     VC.socket.emit "token"
 
