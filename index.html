@@ -21,13 +21,13 @@
   </div>
 
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
+  <script src="http://api.appnima:3001/socket.io/socket.io.js"></script>
   <script src="/lib/appnima.js"></script>
   <script src="/lib/adapter.js"></script>
   <script src="/assets/js/VideoChat.js"></script>
   <script>
-    Appnima.host.main = "http://localhost:1337"
-    Appnima.host.rtc = "http://localhost:3001"
+    // Appnima.host.main = "http://api.appnima:1337"
+    Appnima.host.rtc = "http://api.appnima:3001"
     new window.VideoChat
     $("#text").keypress(function(e) {
       if (e.which == 13) {
