@@ -9,24 +9,33 @@
   <h1>WebRTC Chat</h1>
   <video id="local-video" height="300" autoplay></video>
   <video id="remote-video" height="300" autoplay></video>
-  <div>
-    <input type="text" id="mail" name="mail" value="oihane@tapquo.com"/>
-    <input type="text" id="password" name="password" value="1991oihi"/>
-    <button id="onLogin">LOGIN</button>
-  </div>
+
+  <section id="messages-container">
+      <div id="messages"></div>
+      <textarea id="text"></textarea>
+  </section>
+
   <div>
     <button id="get-video">Get Video</button>
-    <button id="call">Call</button>
+    <button class="disable" id="call" disabled="disabled">Call</button>
   </div>
 
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="http://api.appnima.com:3001/socket.io/socket.io.js"></script>
+  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
   <script src="/lib/appnima.js"></script>
   <script src="/lib/adapter.js"></script>
   <script src="/assets/js/VideoChat.js"></script>
   <script>
-    Appnima.host.rtc = "http://api.appnima.com:3001"
+    Appnima.host.main = "http://localhost:1337"
+    Appnima.host.rtc = "http://localhost:3001"
     new window.VideoChat
+    $("#text").keypress(function(e) {
+      if (e.which == 13) {
+        VC.sendText($(this).val());
+        VC.onMessage("Me", $(this).val());
+        $(this).val("");
+      }
+    });
   </script>
 </body>
 </html>
