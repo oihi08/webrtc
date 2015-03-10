@@ -1,7 +1,7 @@
 class window.VideoChat
 
   constructor: ->
-    Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
+    Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
     Appnima.User.session()
 
     @peer = new Appnima.Peer()
@@ -20,7 +20,7 @@ class window.VideoChat
   onLogin: ->
     mail = $(document.getElementById("mail")).val()
     password = $(document.getElementById("password")).val()
-    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f0571e9e06f4a0298946ac")
+    if mail is "oihane@tapquo.com" then Appnima.Network.shieldFollow("54f5cbe233b84d9e6eb8dadf")
     Appnima.User.login(mail, password)
     console.log "Login!"
 
