@@ -33,7 +33,7 @@ class window.VideoChat
     @localVideo = document.getElementById "local-video"
     @localVideo.volume = 0
     @localVideo.src = window.URL.createObjectURL stream
-    @peer.stream stream, @callButton
+    @peer.stream stream, @callButton, Appnima.User.session().id
     @videoButton.setAttribute "disabled", "disabled"
     @peer.join()
 
