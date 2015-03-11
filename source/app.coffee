@@ -10,9 +10,9 @@ class window.VideoChat
   constructor: ->
 
     #DEVELOPMENT
-    Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
+    # Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
     #REAL
-    # Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
+    Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
     Appnima.User.session()
     @peer = new Appnima.Peer()
     @peer.on 'onAddStream', @onAddStream
@@ -22,6 +22,9 @@ class window.VideoChat
 
     @callButton = document.getElementById "call"
     @callButton.addEventListener "click", @startCall, false
+
+    @loginButton = document.getElementById "login"
+    @loginButton.addEventListener "click", @onLogin, false
 
   requestMediaStream: (event) =>
     getUserMedia {video: true, audio: true}, @onMediaStream, @noMediaStream
@@ -43,3 +46,9 @@ class window.VideoChat
   onAddStream: (event) =>
     @remoteVideo = document.getElementById "remote-video"
     @remoteVideo.src = window.URL.createObjectURL event.stream
+
+  onLogin: ->
+    mail = $(document.getElementById("mail")).val()
+    password = $(document.getElementById("pass")).val()
+    Appnima.User.login(mail, password)
+    console.log "Login DONE!"
