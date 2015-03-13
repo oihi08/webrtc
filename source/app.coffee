@@ -65,8 +65,8 @@ class window.VideoChat
   onOffer: =>
     @peer.offer CATA
 
-  onAnswer: (offer) =>
-    @peer.answer offer, OIHI
+  onAnswer: (answer) =>
+    @peer.answer answer, OIHI
 
   onCandidate: (candidate) =>
     @peer.candidate candidate, @friend
