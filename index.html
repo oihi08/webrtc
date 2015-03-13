@@ -30,13 +30,6 @@
     Appnima.host.main = "http://localhost:1337"
     Appnima.host.rtc = "http://localhost:3001"
     new window.VideoChat
-    $("#text").keypress(function(e) {
-      if (e.which == 13) {
-        VC.sendText($(this).val());
-        VC.onMessage("Me", $(this).val());
-        $(this).val("");
-      }
-    });
   </script>
 </body>
 </html>
