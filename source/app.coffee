@@ -38,8 +38,8 @@ class window.VideoChat
     @localVideo = document.getElementById "local-video"
     @localVideo.volume = 0
     @localVideo.src = window.URL.createObjectURL stream
-    @peer.stream stream, @callButton
-    @videoButton.setAttribute "disabled", "disabled"
+    @peer.stream stream
+    # @videoButton.setAttribute "disabled", "disabled"
     @peer.join()
 
   noMediaStream: ->
@@ -49,6 +49,7 @@ class window.VideoChat
     @peer.token()
 
   onAddStream: (event) =>
+    console.log "kokok"
     @remoteVideo = document.getElementById "remote-video"
     @remoteVideo.src = window.URL.createObjectURL event.stream
 
@@ -64,8 +65,8 @@ class window.VideoChat
   onOffer: =>
     @peer.offer CATA
 
-  onAnswer: (answer) =>
-    @peer.answer answer, OIHI
+  onAnswer: (offer) =>
+    @peer.answer offer, OIHI
 
   onCandidate: (candidate) =>
     @peer.candidate candidate, @friend
