@@ -49,7 +49,7 @@ class window.VideoChat
     @peer.token()
 
   onAddStream: (event) =>
-    console.log "kokok"
+    console.log "onAddStream"
     @remoteVideo = document.getElementById "remote-video"
     @remoteVideo.src = window.URL.createObjectURL event.stream
 
