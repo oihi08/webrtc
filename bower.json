@@ -1,0 +1,7 @@
+{
+  "name": "webrtc",
+  "dependencies": {
+      "adapter.js"  : "*",
+      "appnima"     : "*"
+    }
+}
