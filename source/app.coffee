@@ -22,8 +22,11 @@ class window.VideoChat
     @peer.on 'candidate', @onCandidate
     if Appnima.User.session()?.id is CATA then @friend = OIHI else @friend = CATA
 
-    @videoButton = document.getElementById "get-video"
-    @videoButton.addEventListener "click", @requestMediaStream, false
+    if Appnima.User.session()?
+      document.getElementById("get-video").disabled = false
+      document.getElementById("call").disabled = false
+      @videoButton = document.getElementById "get-video"
+      @videoButton.addEventListener "click", @requestMediaStream, false
 
     @callButton = document.getElementById "call"
     @callButton.addEventListener "click", @startCall, false
@@ -59,8 +62,13 @@ class window.VideoChat
   onLogin: =>
     mail = $(document.getElementById("mail")).val()
     password = $(document.getElementById("pass")).val()
-    Appnima.User.login(mail, password)
-    console.log "Login DONE!"
+    Appnima.User.login(mail, password).then (error, user) ->
+      if user
+        document.getElementById("get-video").disabled = false
+        document.getElementById("call").disabled = false
+        console.log "#{user.mail} Logged!"
+      else
+        console.log "[Error] #{error.message}"
 
   onOffer: =>
     @peer.offer CATA
