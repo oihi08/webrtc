@@ -13,16 +13,18 @@ class window.VideoChat
     Appnima.key = "NTRmMDQ3YzhhMGYyMDU5OTQ2YWYzM2NjOmhwMzRyVHFhY3F5SUVod3NmaDNUU0ZCZmhjdVdCeWw="
     #REAL
     # Appnima.key = "NTRmMDNkNmYzNzg1NWYzMzI5YzMzNzc5OlZLT3JOd00xM1N6ZjVtY2ZDaXhFOUU5ZmVYRUhPa1g="
-    Appnima.User.session()
     @peer = new Appnima.Peer()
     @peer.on 'connected', @onConnected
     @peer.on 'answer', @onAnswer
     @peer.on 'offer', @onOffer
     @peer.on 'onAddStream', @onAddStream
     @peer.on 'candidate', @onCandidate
-    if Appnima.User.session()?.id is CATA then @friend = OIHI else @friend = CATA
 
-    if Appnima.User.session()?
+    session = JSON.parse localStorage.getItem Appnima.key
+    if session?.id is CATA then @friend = OIHI else @friend = CATA
+
+    if session?
+      console.log "entra 1"
       document.getElementById("get-video").disabled = false
       document.getElementById("call").disabled = false
       @videoButton = document.getElementById "get-video"
