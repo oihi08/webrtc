@@ -24,11 +24,10 @@ class window.VideoChat
     if session?.id is CATA then @friend = OIHI else @friend = CATA
 
     if session?
-      console.log "entra 1"
       document.getElementById("get-video").disabled = false
       document.getElementById("call").disabled = false
-      @videoButton = document.getElementById "get-video"
-      @videoButton.addEventListener "click", @requestMediaStream, false
+    @videoButton = document.getElementById "get-video"
+    @videoButton.addEventListener "click", @requestMediaStream, false
 
     @callButton = document.getElementById "call"
     @callButton.addEventListener "click", @startCall, false
@@ -44,7 +43,6 @@ class window.VideoChat
     @localVideo.volume = 0
     @localVideo.src = window.URL.createObjectURL stream
     @peer.stream stream
-    # @videoButton.setAttribute "disabled", "disabled"
     @peer.join()
 
   noMediaStream: ->
