@@ -19,6 +19,7 @@ class window.VideoChat
     @peer.on 'offer', @onOffer
     @peer.on 'onAddStream', @onAddStream
     @peer.on 'candidate', @onCandidate
+    @peer.on 'hangUp', @onHangUpPeer
 
     session = JSON.parse localStorage.getItem Appnima.key
     if session?.id is CATA then @friend = OIHI else @friend = CATA
@@ -34,6 +35,9 @@ class window.VideoChat
 
     @loginButton = document.getElementById "login"
     @loginButton.addEventListener "click", @onLogin, false
+
+    @hangupButton = document.getElementById "hangup"
+    @hangupButton.addEventListener "click", @onHangUp, false
 
   requestMediaStream: (event) =>
     getUserMedia {video: true, audio: true}, @onMediaStream, @noMediaStream
@@ -69,6 +73,21 @@ class window.VideoChat
         console.log "#{user.mail} Logged!"
       else
         console.log "[Error] #{error.message}"
+
+  onHangUp: =>
+    @_disconnect()
+    @peer.hangUp()
+
+  onHangUpPeer: =>
+    @_disconnect()
+
+  _disconnect: =>
+    @remoteVideo.pause()
+    # @remoteVideo.stop()
+    @localVideo.pause()
+    # @localVideo.stop()
+    @remoteVideo.src = ""
+    @localVideo.src = ""
 
   onOffer: =>
     @peer.offer CATA
