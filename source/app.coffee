@@ -83,9 +83,7 @@ class window.VideoChat
 
   _disconnect: =>
     @remoteVideo.pause()
-    # @remoteVideo.stop()
     @localVideo.pause()
-    # @localVideo.stop()
     @remoteVideo.src = ""
     @localVideo.src = ""
 
